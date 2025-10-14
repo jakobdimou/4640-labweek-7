@@ -55,4 +55,4 @@ ansible all -m ansible.builtin.ping
 ```bash
 ansible-playbook playbook.yml
 ```
-```
+![Screenshot of nginx page](./ansiblescreenshot.png)
