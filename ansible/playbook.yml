@@ -24,7 +24,7 @@
 
     - name: Generate index.html file from template
       ansible.builtin.template:
-        src: templates/index.html
+        src: templates/index.html.j2
         dest: /web/html/index.html
 
     - name: Reload nginx service
