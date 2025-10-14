@@ -1,0 +1,33 @@
+- name: Configure web servers
+  hosts: all
+  tasks:
+    - name: Install nginx
+      ansible.builtin.apt:
+        name: nginx
+        state: present
+
+    - name: Create directory structure for web documents
+      ansible.builtin.file:
+        path: /web/html
+        state: directory
+
+    - name: Copy nginx conf file to server
+      ansible.builtin.copy:
+        src: files/nginx.conf
+        dest: /etc/nginx/sites-available/default
+
+    - name: Create link to nginx config file to enable it
+      ansible.builtin.file:
+        src: /etc/nginx/sites-available/default
+        dest: /etc/nginx/sites-enabled/default
+        state: link
+
+    - name: Generate index.html file from template
+      ansible.builtin.template:
+        src: templates/index.html
+        dest: /web/html/index.html
+
+    - name: Reload nginx service
+      ansible.builtin.service:
+        name: nginx
+        state: reloaded
